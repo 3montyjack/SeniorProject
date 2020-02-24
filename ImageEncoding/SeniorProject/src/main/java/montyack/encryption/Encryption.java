@@ -2,7 +2,7 @@ package montyack.encryption;
 
 
 /* Use this class as a parent to further implement the other items for the encryption */
-public class Encryption {
+public abstract class Encryption {
 
     String name;
 
@@ -12,5 +12,7 @@ public class Encryption {
 
 	public String getName() {
 		return this.name;
-	}
+    }
+    
+    public abstract ImageTempClass finalImage(ImageTempClass inputImage);
 }

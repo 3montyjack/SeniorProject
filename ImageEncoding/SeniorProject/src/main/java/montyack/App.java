@@ -1,7 +1,8 @@
 package montyack;
 
 import montyack.display.MainWindow;
-import montyack.encryption.Encryption;
+import montyack.encryption.LeastSignificantBit;
+import montyack.encryption.MostSignificantBit;
 
 /**
  * Hello world!
@@ -12,15 +13,15 @@ public final class App {
 
     /**
      * Says hello to the world.
+     * 
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
         System.out.println("Hello World!");
         MainWindow window = new MainWindow("Main Window");
-
-        window.addEncryption(new Encryption("Test"));
-        window.addEncryption(new Encryption("Test"));
-        window.addEncryption(new Encryption("Test"));
+        window.addEncryption(new LeastSignificantBit());
+        window.addEncryption(new MostSignificantBit());
+        window.addEncryption(new LeastSignificantBit());
         window.displayThings();
     }
 }

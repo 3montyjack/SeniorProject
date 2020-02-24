@@ -1,10 +1,12 @@
-package montyack.logicController;
+package montyack.logiccontroller;
 
 
 public class FileHandeling {
 
-    String inputDir;
-    String outputDir;
+    static String inputDir = "";
+    static String outputDir = "";
+
+    static boolean isConfigured = false;
 
     public FileHandeling() {
         inputDir = "";
@@ -13,10 +15,16 @@ public class FileHandeling {
 
     public void setInputDir(String inputDir) {
         this.inputDir = inputDir;
+        if (outputDir != "") {
+            isConfigured = true;
+        }
     }
     
     public void setOutputDir(String outputDir) {
         this.outputDir = outputDir;
+        if (inputDir != "") {
+            isConfigured = true;
+        }
     }   
     
     public String getInputDir(){
