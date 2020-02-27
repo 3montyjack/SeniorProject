@@ -14,7 +14,7 @@ public class LeastSignificantBit extends Encryption {
         inputImage.getRGB(0, 0, inputImage.getWidth(), inputImage.getHeight(), imageColorArray, 0, 0);
         int x = 0;
         for(int i = 0; i < inputMessage.length(); i++) {
-            char tempItem = ((CharSequence) inputImage).charAt(i);
+            char tempItem = inputMessage.charAt(i);
             for (int j = 0; j < 8; j++) {
 
                 imageColorArray[x] = imageColorArray[x] & 0x01111111 | ((tempItem << j) & 0x10000000);

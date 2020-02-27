@@ -70,6 +70,7 @@ public class MainWindow extends JFrame {
                     String tempPath2 = "ascii(Final).jpeg";
                     File tempFile2 = new File(tempPath2);
                     File tempFile = new File(tempPath);
+                    System.out.println( tempFile.getAbsolutePath());
                     ImageIO.write(dataType.finalImage(ImageIO.read(tempFile), "Hello World"), "png", tempFile2);
                     
                 } catch (IOException e1) {
