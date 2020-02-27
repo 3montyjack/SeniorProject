@@ -1,5 +1,6 @@
 package montyack.encryption;
 
+import java.awt.image.BufferedImage;
 
 /* Use this class as a parent to further implement the other items for the encryption */
 public abstract class Encryption {
@@ -14,5 +15,5 @@ public abstract class Encryption {
 		return this.name;
     }
     
-    public abstract ImageTempClass finalImage(ImageTempClass inputImage);
+    public abstract BufferedImage finalImage(BufferedImage inputImage, String messageToEncrypt);
 }

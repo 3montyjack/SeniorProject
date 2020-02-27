@@ -2,7 +2,18 @@ package montyack.display;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Iterator;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageTypeSpecifier;
+import javax.imageio.metadata.IIOMetadata;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -40,10 +51,36 @@ public class MainWindow extends JFrame {
     private void makeTabBasedOnEncryption(Encryption dataType) {
         JPanel panel = new JPanel(false);
         JLabel filler = new JLabel(dataType.getName());
+        JButton doImageThings = new JButton("Press Me to make an image");
         filler.setHorizontalAlignment(JLabel.CENTER);
         panel.setLayout(new GroupLayout(panel));
         panel.add(filler);
+        panel.add(doImageThings);
+        
+        
+        doImageThings.setBounds(50, 40, 150, 20);
         mainPane.addTab(dataType.getName(), panel);
+        doImageThings.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Temporary Testing of the image
+                try {
+                    String tempPath = "ascii.jpeg";
+                    String tempPath2 = "ascii(Final).jpeg";
+                    File tempFile2 = new File(tempPath2);
+                    File tempFile = new File(tempPath);
+                    ImageIO.write(dataType.finalImage(ImageIO.read(tempFile), "Hello World"), "png", tempFile2);
+                    
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+            }
+        });
+
+
     }
 
     public void displayThings() {
