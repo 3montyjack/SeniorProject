@@ -8,13 +8,16 @@ Registry Editing
 
 To get the java app to work
 
-
+    Get the jar file from downloads
 
 To get the ml thing to run
 
     pip3 install tensorflow
     pip3 install matplotlib
     pip3 install pandas
+    pip3 install numpy
+
+
 
 
 TODO:
