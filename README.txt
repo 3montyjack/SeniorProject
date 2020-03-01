@@ -19,14 +19,19 @@ To get the ml thing to run
 
 TODO:
     [] Finish the picture encrypter
-    [] Finish implementing the files for the tensorflow
-    [] Figure out the structure of the CNN that I will be using
-    [] Further push the algorythim to find hiddedn elements 
+        [X] Read/Write images working
+        [X] GSB is working
+        [] Mass read / writing of images
+        [] Finsih up other algorythims
+    [] Finish TesnorFlow setup
+        [X] Finish implementing the files for the tensorflow
+        [] Figure out the structure of the CNN that I will be using
+        [] Make a NN that works with GSB
+        [] Make it work on other algorythims
 
 
 Week 1:
     Finished gathering images, and also decided what framework and what kind of neural net I will be using
-
 Week 2 - 3:
     Worked on getting the image encoding software working, had a lot of trouble with This
 Week 4:
