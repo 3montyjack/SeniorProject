@@ -15,11 +15,14 @@ import pathlib
 
 # data_dir = open()
 data_dir = pathlib.Path(
-    'G:/Desktop/School/Senior%20Project/101_ObjectCategories/101_ObjectCategories')
+    './ImageProcessing/101_ObjectCategories/101_ObjectCategories')
+open('./ImageProcessing/101_ObjectCategories/101_ObjectCategories/accordion/image_0001.jpg')
 print(data_dir.cwd())
 image_count = len(list(data_dir.glob('*/*.jpg')))
 
 print(image_count)
+
+
 
 # plt.figure()
 # plt.imshow(train_images[0])
