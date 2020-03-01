@@ -11,6 +11,10 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+# Files for ML
+101_ObjetCategories/*
+256_ObjectCategories/*
+
 #
 # IntelliJ
 #

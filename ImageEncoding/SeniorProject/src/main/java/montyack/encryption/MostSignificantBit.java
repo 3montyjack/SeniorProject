@@ -12,7 +12,7 @@ public class MostSignificantBit extends Encryption {
 
     @Override
     public BufferedImage finalImage(BufferedImage inputImage, String inputMessage) {
-        int[] imageColorArray = new int[inputImage.getWidth() * inputImage.getHeight()];
+        int[] imageColorArray = new int[3*inputImage.getWidth() * inputImage.getHeight()];
         inputImage.getRGB(0, 0, inputImage.getWidth(), inputImage.getHeight(), imageColorArray, 0, 0);
         int x = 0;
         for (int i = 0; i < inputMessage.length(); i++) {
