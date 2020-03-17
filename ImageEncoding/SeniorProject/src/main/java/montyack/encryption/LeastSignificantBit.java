@@ -25,18 +25,19 @@ public class LeastSignificantBit extends Encryption {
         return inputImage;
     }
 
-    private int[] setPixels(BufferedImage tempImage, int xStart, int yStart, char currentChar) {
+    protected int[] setPixels(BufferedImage tempImage, int xStart, int yStart, char currentChar) {
         int[] endingCords = {xStart, yStart};
         int currentCharInt = Character.getNumericValue(currentChar);
-        System.out.println(currentCharInt);
-        for (int j = 0; j < 4; j++) {
-            System.out.println("Here with pixel: " + endingCords[0] + " " + endingCords[1]);
+        for (int j = 0; j < 6; j++) {
 
-            int rgb = (currentCharInt & 0x8)>> 12 | (currentCharInt & 0x4) >> 8 | (currentCharInt & 0x2)>> 4 | (currentCharInt & 0x1);
-            int originalPixel = tempImage.getRGB(endingCords[0], endingCords[1]);
-            rgb = rgb | (originalPixel & 0x7777);
-            currentCharInt = currentCharInt >> 4;
+            //TODO this might be wrong
             System.out.println(currentCharInt);
+            int rgb =  (currentCharInt & 0x4) << 14 | (currentCharInt & 0x2) << 7 | (currentCharInt & 0x1); 
+            // (currentCharInt & 0x8) << 19 |
+            System.out.println(rgb);
+            int originalPixel = tempImage.getRGB(endingCords[0], endingCords[1]);
+            rgb = rgb | (originalPixel & 0xFFFEFEFE);
+            currentCharInt = currentCharInt >> 3;
             tempImage.setRGB(endingCords[0], endingCords[1], rgb);
 
             endingCords[0]++;
@@ -47,4 +48,6 @@ public class LeastSignificantBit extends Encryption {
         }
         return endingCords;
     }
+
+    
 }

@@ -2,18 +2,10 @@ package montyack.display;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Iterator;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReadParam;
-import javax.imageio.ImageReader;
-import javax.imageio.ImageTypeSpecifier;
-import javax.imageio.metadata.IIOMetadata;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -24,6 +16,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.plaf.DimensionUIResource;
 
 import montyack.encryption.Encryption;
+import montyack.logiccontroller.FileHandeling;
 
 public class MainWindow extends JFrame {
 
@@ -34,6 +27,7 @@ public class MainWindow extends JFrame {
 
     JTabbedPane mainPane;
     static String fileDirectory;
+    FileHandeling files;
 
     public MainWindow(String name) {
         super(name);
@@ -42,6 +36,7 @@ public class MainWindow extends JFrame {
         mainPane = new JTabbedPane();
         add(mainPane);
         addFileTab();
+        files = new FileHandeling();
     }
 
     public void addEncryption(Encryption dataType) {
@@ -119,8 +114,11 @@ public class MainWindow extends JFrame {
                 // TODO Auto-generated method stub
                 fileChooser.showDialog(panel, "Pick a File");
                 if (fileChooser.getSelectedFile().exists()) {
-                    fileDirIn.setText(fileChooser.getSelectedFile().getAbsolutePath());
+                    files.setInputDir(fileChooser.getSelectedFile().getAbsolutePath());
+                    fileDirIn.setText(files.getInputDir());
+                    files.generateList();
                 }
+                files.printList();
                 
             }
         });

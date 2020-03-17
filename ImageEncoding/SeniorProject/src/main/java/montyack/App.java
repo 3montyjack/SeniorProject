@@ -17,11 +17,10 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        System.out.println("Hello World!");
         MainWindow window = new MainWindow("Main Window");
         window.addEncryption(new LeastSignificantBit());
         window.addEncryption(new MostSignificantBit());
-        window.addEncryption(new LeastSignificantBit());
+        // window.addEncryption(new LeastSignificantBit());
         window.displayThings();
     }
 }

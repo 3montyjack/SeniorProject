@@ -16,4 +16,5 @@ public abstract class Encryption {
     }
     
     public abstract BufferedImage finalImage(BufferedImage inputImage, String messageToEncrypt);
+    protected abstract int[] setPixels(BufferedImage tempImage, int xStart, int yStart, char currentChar);
 }
