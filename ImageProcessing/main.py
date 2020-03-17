@@ -13,17 +13,18 @@ import os
 
 import pathlib
 
-data_dir = open()
-data_dir = pathlib.Path(
-    )
-dataPath = './ImageProcessing/101_ObjectCategories/101_ObjectCategories'
-open(dataPath + '/accordion/image_0001.jpg')
+
+dataPath = './ImageProcessing/101_ObjectCategories'
+data_dir = tf.keras.utils.get_file('101_ObjectCategories', dataPath, untar=False)
 print(data_dir.cwd())
 image_count = len(list(data_dir.glob('*/*.jpg')))
 train_images = data_dir.glob('*/*.jpg')
 print(image_count)
 
+list_ds = tf.data.Dataset.list_files(str(flowers_root/'*/*'))
 
+for f in list_ds.take(5):
+  print(f.numpy())
 # dataPath = 'file://G:/Desktop/School/Senior Project/FinalProject/ImageProcessing/101_ObjectCategories/101_ObjectCategories'
 
 
