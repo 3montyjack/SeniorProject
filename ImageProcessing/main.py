@@ -2,10 +2,17 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import pathlib
+import glob
 
 import matplotlib.pyplot as plt
 import numpy as np
 import IPython.display as display
+
+import numpy as np
+from matplotlib.pyplot import imread
+
+import PIL.Image as Image
+
 from PIL import Image
 import pandas as pd
 import tensorflow as tf
@@ -13,18 +20,35 @@ import os
 
 import pathlib
 
+IMAGE_SHAPE = [0,0,224, 224]
 
-dataPath = './ImageProcessing/101_ObjectCategories'
-data_dir = tf.keras.utils.get_file('101_ObjectCategories', dataPath, untar=False)
-print(data_dir.cwd())
-image_count = len(list(data_dir.glob('*/*.jpg')))
-train_images = data_dir.glob('*/*.jpg')
-print(image_count)
+foldername = "./ImageProcessing/101_ObjectCategories/101_ObjectCategories"
 
-list_ds = tf.data.Dataset.list_files(str(flowers_root/'*/*'))
+dataPath = os.getcwd() + '/ImageProcessing/101_ObjectCategories/101_ObjectCategories'
+imageTemp = Image.open(dataPath + '/airplanes/image_0001.jpg').crop(IMAGE_SHAPE)
+imageTemp = np.array(imageTemp)
 
-for f in list_ds.take(5):
-  print(f.numpy())
+print(imageTemp.shape)
+
+plt.imshow(imageTemp)
+# plt.show()
+
+image_array = np.array([imread(im) for im in glob.glob(f"{foldername}/*/*.jpg")])
+
+tf.keras.utils.load_data(image_array)
+
+
+
+# data_dir = tf.keras.utils.load_data(path=dataPath)
+# print(data_dir.cwd())
+# image_count = len(list(data_dir.glob('*/*.jpg')))
+# train_images = data_dir.glob('*/*.jpg')
+# print(image_count)
+
+# list_ds = tf.data.Dataset.list_files(str(dataPath/'*/*'))
+
+# for f in list_ds.take(5):
+#   print(f.numpy())
 # dataPath = 'file://G:/Desktop/School/Senior Project/FinalProject/ImageProcessing/101_ObjectCategories/101_ObjectCategories'
 
 

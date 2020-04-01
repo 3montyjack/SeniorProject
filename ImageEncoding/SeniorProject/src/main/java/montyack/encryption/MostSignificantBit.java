@@ -18,7 +18,6 @@ public class MostSignificantBit extends Encryption {
             int[] temp = setPixels(inputImage, x, y, inputMessage.charAt(i));
             x = temp[0];
             y = temp[1];
-            System.out.println("Here are the x and y vaues" + x + " " + y);
             if (i >= inputMessage.length() - 1) {
                 break;
             }
@@ -30,15 +29,11 @@ public class MostSignificantBit extends Encryption {
         int[] endingCords = { xStart, yStart };
         int currentCharInt = Character.getNumericValue(currentChar);
         for (int j = 0; j < 6; j++) {
-            System.out.println("Here with pixel: " + endingCords[0] + " " + endingCords[1]);
-
+            
             int rgb = (currentCharInt & 0x4) << 23 | (currentCharInt & 0x2) << 15 | (currentCharInt & 0x1) << 7;
             int originalPixel = tempImage.getRGB(endingCords[0], endingCords[1]);
-            System.out.println(rgb + " " + (originalPixel & 0xFF7F7F7F));
-            System.out.println(Integer.toHexString(rgb) + " " + Integer.toHexString(originalPixel & 0xFF7F7F7F));
             rgb = rgb | (originalPixel & 0xFF7F7F7F);
             currentCharInt = currentCharInt >> 3;
-            System.out.println(Character.getNumericValue(currentChar >> j));
             tempImage.setRGB(endingCords[0], endingCords[1], rgb);
 
             endingCords[0]++;

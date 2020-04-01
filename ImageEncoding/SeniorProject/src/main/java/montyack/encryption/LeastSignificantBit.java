@@ -17,7 +17,6 @@ public class LeastSignificantBit extends Encryption {
             int[] temp = setPixels(inputImage, x, y, inputMessage.charAt(i));
             x = temp[0];
             y = temp[1];
-            System.out.println("Here are the x and y vaues" + x + " " + y);
             if (i >= inputMessage.length()-1) {
                 break;
             }
@@ -31,10 +30,8 @@ public class LeastSignificantBit extends Encryption {
         for (int j = 0; j < 6; j++) {
 
             //TODO this might be wrong
-            System.out.println(currentCharInt);
             int rgb =  (currentCharInt & 0x4) << 14 | (currentCharInt & 0x2) << 7 | (currentCharInt & 0x1); 
             // (currentCharInt & 0x8) << 19 |
-            System.out.println(rgb);
             int originalPixel = tempImage.getRGB(endingCords[0], endingCords[1]);
             rgb = rgb | (originalPixel & 0xFFFEFEFE);
             currentCharInt = currentCharInt >> 3;

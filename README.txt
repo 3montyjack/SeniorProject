@@ -16,6 +16,7 @@ To get the ml thing to run
     pip3 install matplotlib
     pip3 install pandas
     pip3 install numpy
+    pip3 install tensorflow_datasets
 
 
 
@@ -24,13 +25,28 @@ TODO:
     [] Finish the picture encrypter
         [X] Read/Write images working
         [X] GSB is working
-        [] Mass read / writing of images
+        [X] Mass read / writing of images
         [] Finsih up other algorythims
+        [] Generate csv for all of the algorythims generated
     [] Finish TesnorFlow setup
         [X] Finish implementing the files for the tensorflow
-        [] Figure out the structure of the CNN that I will be using
+        [X] Figure out the structure of the CNN that I will be using
         [] Make a NN that works with GSB
         [] Make it work on other algorythims
+
+    File structure that will be generated:
+
+        ImageEncoding
+            Java Project / Jar file
+        ImageProcessing
+            Python files
+        ImageLibrary
+            Train
+                Categories of encryption algs
+            Test
+                Categories of encryption algs
+
+
 
 
 Week 1:

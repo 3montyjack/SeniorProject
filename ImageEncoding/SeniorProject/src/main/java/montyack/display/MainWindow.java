@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
@@ -28,6 +29,7 @@ public class MainWindow extends JFrame {
     JTabbedPane mainPane;
     static String fileDirectory;
     FileHandeling files;
+    ArrayList<Encryption> encryptions;
 
     public MainWindow(String name) {
         super(name);
@@ -37,9 +39,11 @@ public class MainWindow extends JFrame {
         add(mainPane);
         addFileTab();
         files = new FileHandeling();
+        encryptions = new ArrayList<Encryption>();
     }
 
     public void addEncryption(Encryption dataType) {
+        encryptions.add(dataType);
         makeTabBasedOnEncryption(dataType);
     }
 
@@ -100,25 +104,26 @@ public class MainWindow extends JFrame {
         JLabel fileDirOut = new JLabel("Please Select a File");
         JButton importFileButton = new JButton("Files to Import");
         JButton outputFileButton = new JButton("Files to Output");
+        JButton encryptRandom = new JButton("Mass Encrypt Random");
         label.setHorizontalAlignment(JLabel.CENTER);
         panel.setLayout(new GroupLayout(panel));
         panel.add(label);
         
-
+        
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
+        
         importFileButton.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
+                System.out.println( e.getActionCommand());
                 fileChooser.showDialog(panel, "Pick a File");
-                if (fileChooser.getSelectedFile().exists()) {
+                System.out.println(fileChooser.getSelectedFile());
+                if (fileChooser.getSelectedFile() != null && fileChooser.getSelectedFile().exists()) {
                     files.setInputDir(fileChooser.getSelectedFile().getAbsolutePath());
                     fileDirIn.setText(files.getInputDir());
-                    files.generateList();
+                    files.generateInputList();
                 }
-                files.printList();
                 
             }
         });
@@ -126,22 +131,38 @@ public class MainWindow extends JFrame {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
                 fileChooser.showDialog(panel, "Pick a File");
-                if (fileChooser.getSelectedFile().exists()) {
+                if (fileChooser.getSelectedFile() != null && fileChooser.getSelectedFile().exists()) {
+                    files.setOutputDir(fileChooser.getSelectedFile().getAbsolutePath());
                     fileDirOut.setText(fileChooser.getSelectedFile().getAbsolutePath());
-                }
+                } 
                 
             }
         });
+
+        encryptRandom.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    files.encryptImagesRandomly(encryptions);
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+        });
+
         importFileButton.setBounds(50, 20, 150, 20);
         outputFileButton.setBounds(50, 40, 150, 20);
-        fileDirIn.setBounds(50, 120, 300, 20);
-        fileDirOut.setBounds(50, 140, 300, 20);
+        encryptRandom.setBounds(50, 60, 150, 20);
+        fileDirIn.setBounds(50, 120, 500, 20);
+        fileDirOut.setBounds(50, 140, 500, 20);
         panel.add(importFileButton);
         panel.add(outputFileButton);
         panel.add(fileChooser);
         panel.add(fileDirIn);
+        panel.add(fileDirOut);
+        panel.add(encryptRandom);
 
 
 

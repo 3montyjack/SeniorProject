@@ -2,6 +2,8 @@ package montyack.encryption;
 
 import java.awt.image.BufferedImage;
 
+import montyack.logiccontroller.FileHandeling;
+
 /* Use this class as a parent to further implement the other items for the encryption */
 public abstract class Encryption {
 
@@ -17,4 +19,8 @@ public abstract class Encryption {
     
     public abstract BufferedImage finalImage(BufferedImage inputImage, String messageToEncrypt);
     protected abstract int[] setPixels(BufferedImage tempImage, int xStart, int yStart, char currentChar);
+
+    public void saveImageToDir(BufferedImage inputImage, String directory) {
+        
+    }
 }
