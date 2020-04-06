@@ -111,12 +111,12 @@ public class FileHandeling {
         }
     }
 
-    public void encryptImagesRandomly(ArrayList<Encryption> listOfEncryptions) throws IOException {
-        pickFiles(listOfEncryptions, 1000, 1000);
+    public void encryptImagesRandomly(ArrayList<Encryption> listOfEncryptions, String encryptedText) throws IOException {
+        pickFiles(listOfEncryptions, 100, 100, encryptedText);
     }
 
     public void pickFiles(ArrayList<Encryption> listOfEncryptions, int ammountOfTraining, 
-            int ammountOfValidation ) throws IOException {
+            int ammountOfValidation, String encryptedText ) throws IOException {
         makeDirectories(listOfEncryptions);
         for (Encryption encryption : listOfEncryptions) {
             for (int i = 0; i < ammountOfTraining; i++) {
@@ -124,9 +124,9 @@ public class FileHandeling {
                 int selectedNumber = number.nextInt(stringsList.size());
                 BufferedImage image = ImageIO.read(new File(stringsList.get(selectedNumber)));
                 
-                image = encryption.finalImage(image, "HelloWorld");
+                image = encryption.finalImage(image, encryptedText);
                 FileHandeling.savePhotoToDirectory(image, encryption.getName(),
-                        (i+1) + ".jpg", false);
+                        (i+1) + ".png", false);
             }
         }
         for (Encryption encryption : listOfEncryptions) {
@@ -135,7 +135,7 @@ public class FileHandeling {
                 int selectedNumber = number.nextInt(stringsList.size());
                 BufferedImage image = ImageIO.read(new File(stringsList.get(selectedNumber)));
 
-                image = encryption.finalImage(image, "HelloWorld");
+                image = encryption.finalImage(image, encryptedText);
                 FileHandeling.savePhotoToDirectory(image, encryption.getName(), (i + 1) + ".jpg", true);
             }
         }

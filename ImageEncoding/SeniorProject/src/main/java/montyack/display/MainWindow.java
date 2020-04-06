@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -98,27 +99,22 @@ public class MainWindow extends JFrame {
     private void addFileTab() {
         String tabName = "File Settings";
         JPanel panel = new JPanel(true);
-        JLabel label = new JLabel(tabName);
+        JPanel fileSelection = new JPanel(true);
         JFileChooser fileChooser = new JFileChooser();
         JLabel fileDirIn = new JLabel("Please Select a File");
         JLabel fileDirOut = new JLabel("Please Select a File");
         JButton importFileButton = new JButton("Files to Import");
         JButton outputFileButton = new JButton("Files to Output");
         JButton encryptRandom = new JButton("Mass Encrypt Random");
-        label.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GroupLayout(panel));
-        panel.add(label);
         
-        
+        // panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         
         importFileButton.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println( e.getActionCommand());
                 fileChooser.showDialog(panel, "Pick a File");
-                System.out.println(fileChooser.getSelectedFile());
                 if (fileChooser.getSelectedFile() != null && fileChooser.getSelectedFile().exists()) {
                     files.setInputDir(fileChooser.getSelectedFile().getAbsolutePath());
                     fileDirIn.setText(files.getInputDir());
@@ -141,10 +137,11 @@ public class MainWindow extends JFrame {
         });
 
         encryptRandom.addActionListener(new ActionListener() {
+            String encryptedText = "Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life… He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. Ironic. He could save others from death, but not himself.";
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    files.encryptImagesRandomly(encryptions);
+                    files.encryptImagesRandomly(encryptions, encryptedText);
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -152,19 +149,24 @@ public class MainWindow extends JFrame {
             }
         });
 
-        importFileButton.setBounds(50, 20, 150, 20);
-        outputFileButton.setBounds(50, 40, 150, 20);
-        encryptRandom.setBounds(50, 60, 150, 20);
-        fileDirIn.setBounds(50, 120, 500, 20);
-        fileDirOut.setBounds(50, 140, 500, 20);
-        panel.add(importFileButton);
-        panel.add(outputFileButton);
-        panel.add(fileChooser);
-        panel.add(fileDirIn);
-        panel.add(fileDirOut);
-        panel.add(encryptRandom);
-
-
+        // importFileButton.setBounds(50, 20, 150, 20);
+        // outputFileButton.setBounds(50, 40, 150, 20);
+        // encryptRandom.setBounds(50, 60, 150, 20);
+        // fileDirIn.setBounds(50, 120, 500, 20);
+        // fileDirOut.setBounds(50, 140, 500, 20);
+        // panel.add(importFileButton);
+        // panel.add(outputFileButton);
+        
+        fileSelection.add(importFileButton);
+        fileSelection.add(outputFileButton);
+        fileSelection.add(fileDirIn);
+        fileSelection.add(fileDirOut);
+        fileSelection.add(encryptRandom);
+        // panel.add(fileChooser);
+        importFileButton.setVisible(true);
+        
+        fileSelection.setLayout(new GroupLayout(fileSelection));
+        panel.add(fileSelection);
 
         mainPane.addTab(tabName, panel);
     }
