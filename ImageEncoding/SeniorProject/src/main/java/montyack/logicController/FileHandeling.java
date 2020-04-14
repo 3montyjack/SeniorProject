@@ -112,7 +112,7 @@ public class FileHandeling {
     }
 
     public void encryptImagesRandomly(ArrayList<Encryption> listOfEncryptions, String encryptedText) throws IOException {
-        pickFiles(listOfEncryptions, 100, 100, encryptedText);
+        pickFiles(listOfEncryptions, 10000, 10000, encryptedText);
     }
 
     public void pickFiles(ArrayList<Encryption> listOfEncryptions, int ammountOfTraining, 
