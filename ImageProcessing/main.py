@@ -33,12 +33,10 @@ tempCategories = [x[0] for x in os.walk(data_dir)]
 categories = []
 for i in tempCategories:
   categories.append(i.split('/')[-1])
-print("categories")
-print(categories)
+
 
 def getLabel(filePath):
   partsOfPath = tf.strings.split(filePath, os.path.sep)
-  print(partsOfPath)
   index = 0
   for i in range(len(categories)):
     if partsOfPath[-2] == categories[i]:
@@ -95,8 +93,7 @@ test_datastore = prepare_for_training(test_datastore)
 
 train_images, train_labels = next(iter(train_datastore))
 test_images, test_labels = next(iter(test_datastore))
-print("Training Labels")
-print(train_labels)
+
 # train_images, train_labels = train_images, train_labels
 
 # plt.figure(figsize=(10, 10))
