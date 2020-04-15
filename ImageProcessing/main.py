@@ -18,16 +18,14 @@ import IPython.display as display
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-BATCH_SIZE = 1000
+BATCH_SIZE = 10000
 
 size = [0,0,250,250,4]
-  
-
 
 data_dir = "./ImageProcessing/CatagorizedForCNN/training/"
 
 train_files = tf.data.Dataset.list_files("./ImageProcessing/CatagorizedForCNN/training/*/*.png")
-test_files = tf.data.Dataset.list_files("./ImageProcessing/CatagorizedForCNN/training/*/*.png")
+test_files = tf.data.Dataset.list_files("./ImageProcessing/CatagorizedForCNN/validation/*/*.png")
 
 tempCategories = [x[0] for x in os.walk(data_dir)]
 categories = []
@@ -64,7 +62,7 @@ train_datastore = train_files.map(processPath, num_parallel_calls=tf.data.experi
 test_datastore = test_files.map(processPath, num_parallel_calls=tf.data.experimental.AUTOTUNE)
 
 
-def prepare_for_training(ds, cache=True, shuffle_buffer_size=100000):
+def prepare_for_training(ds, cache=True, shuffle_buffer_size=10000):
   # This is a small dataset, only load it once, and keep it in memory.
   # use `.cache(filename)` to cache preprocessing work for datasets that don't
   # fit in memory.
@@ -124,8 +122,8 @@ model.add(layers.Dense(len(categories)))
 
 # model.summary()
 model.compile(optimizer='adam', loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
-history = model.fit(train_images, train_labels, epochs=5, validation_data=(test_images, test_labels))
-
+history = model.fit(train_images, train_labels, epochs=20, validation_data=(test_images, test_labels))
+w
 
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label='val_accuracy')

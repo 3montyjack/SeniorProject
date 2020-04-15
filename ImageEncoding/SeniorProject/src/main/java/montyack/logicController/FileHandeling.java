@@ -136,7 +136,7 @@ public class FileHandeling {
                 BufferedImage image = ImageIO.read(new File(stringsList.get(selectedNumber)));
 
                 image = encryption.finalImage(image, encryptedText);
-                FileHandeling.savePhotoToDirectory(image, encryption.getName(), (i + 1) + ".jpg", true);
+                FileHandeling.savePhotoToDirectory(image, encryption.getName(), (i + 1) + ".png", true);
             }
         }
     }
