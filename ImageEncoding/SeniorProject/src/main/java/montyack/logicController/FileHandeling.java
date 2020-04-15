@@ -1,5 +1,7 @@
-package montyack.logiccontroller;
+package montyack.logicController;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -115,28 +117,32 @@ public class FileHandeling {
         pickFiles(listOfEncryptions, 10000, 10000, encryptedText);
     }
 
-    public void pickFiles(ArrayList<Encryption> listOfEncryptions, int ammountOfTraining, 
-            int ammountOfValidation, String encryptedText ) throws IOException {
+    public void pickFiles(ArrayList<Encryption> listOfEncryptions, int amountOfTraining, 
+            int amountOfValidation, String encryptedText ) throws IOException {
         makeDirectories(listOfEncryptions);
-        for (Encryption encryption : listOfEncryptions) {
-            for (int i = 0; i < ammountOfTraining; i++) {
-                Random number = new Random();
-                int selectedNumber = number.nextInt(stringsList.size());
-                BufferedImage image = ImageIO.read(new File(stringsList.get(selectedNumber)));
-                
-                image = encryption.finalImage(image, encryptedText);
-                FileHandeling.savePhotoToDirectory(image, encryption.getName(),
-                        (i+1) + ".png", false);
-            }
-        }
-        for (Encryption encryption : listOfEncryptions) {
-            for (int i = 0; i < ammountOfValidation; i++) {
-                Random number = new Random();
-                int selectedNumber = number.nextInt(stringsList.size());
-                BufferedImage image = ImageIO.read(new File(stringsList.get(selectedNumber)));
+        int width = 250;
+        int height = width;
+        readAndWriteImageToFile(width, height, listOfEncryptions, amountOfTraining, encryptedText, false);
+        readAndWriteImageToFile(width, height, listOfEncryptions, amountOfValidation, encryptedText, true);
+    }
 
-                image = encryption.finalImage(image, encryptedText);
-                FileHandeling.savePhotoToDirectory(image, encryption.getName(), (i + 1) + ".jpg", true);
+    public void readAndWriteImageToFile(int width, int height, ArrayList<Encryption> listOfEncryptions, int amountOf, String encryptedText, boolean validation) {
+        for (Encryption encryption : listOfEncryptions) {
+            for (int i = 0; i < amountOf; i++) {
+                try {
+                    Random number = new Random();
+                    int selectedNumber = number.nextInt(stringsList.size());
+                    BufferedImage image = ImageIO.read(new File(stringsList.get(selectedNumber)));
+                    Image tempimage = image.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                    BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D graphic = newImage.createGraphics();
+                    graphic.drawImage(tempimage, 0, 0, null);
+                    newImage = encryption.finalImage(newImage, encryptedText);
+                    FileHandeling.savePhotoToDirectory(newImage, encryption.getName(), (i + 1) + ".png", validation);
+                } catch (Exception e) {
+                    i--;
+                }
+
             }
         }
     }
