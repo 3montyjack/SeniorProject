@@ -24,10 +24,10 @@ size = [0,0,250,250,4]
   
 
 
-data_dir = "./ImageProcessing/CatagorizedForCNN/training/"
+data_dir = "./ImageProcessing/FinalImagesForTesting/training/"
 
-train_files = tf.data.Dataset.list_files("./ImageProcessing/CatagorizedForCNN/training/*/*.png")
-test_files = tf.data.Dataset.list_files("./ImageProcessing/CatagorizedForCNN/training/*/*.png")
+train_files = tf.data.Dataset.list_files("./ImageProcessing/FinalImagesForTesting/training/*/*.png")
+test_files = tf.data.Dataset.list_files("./ImageProcessing/FinalImagesForTesting/validation/*/*.png")
 
 tempCategories = [x[0] for x in os.walk(data_dir)]
 categories = []

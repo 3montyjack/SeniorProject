@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -23,7 +24,7 @@ import javax.swing.SpringLayout;
 import javax.swing.plaf.DimensionUIResource;
 
 import montyack.encryption.Encryption;
-import montyack.logiccontroller.FileHandeling;
+import montyack.logicController.FileHandeling;
 
 public class MainWindow extends JFrame {
 
@@ -36,7 +37,7 @@ public class MainWindow extends JFrame {
     static String fileDirectory;
     FileHandeling files;
     ArrayList<Encryption> encryptions;
-    String encryptedText = "Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life… He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. Ironic. He could save others from death, but not himself.";
+    String textToEncrypt = "Did you ever hear the tragedy of Darth Plagueis The Wise? I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life… He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful… the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. Ironic. He could save others from death, but not himself.";
 
     public MainWindow(String name) {
         super(name);
@@ -110,8 +111,10 @@ public class MainWindow extends JFrame {
         JFileChooser fileChooser = new JFileChooser();
         JLabel fileDirIn = new JLabel("Please Select a File");
         JLabel fileDirOut = new JLabel("Please Select a File");
-        JTextArea ammountPlain = new JTextArea("200");
-        JTextArea ammountEncrypted = new JTextArea("200");
+        JLabel encryptedText = new JLabel("Amount Encrypted");
+        JLabel validationText = new JLabel("Amount Validation");
+        JTextArea amountEncrypted = new JTextArea("200");
+        JTextArea amountValidation = new JTextArea("200");
         JButton importFileButton = new JButton("Files to Import");
         JButton outputFileButton = new JButton("Files to Output");
         JButton encryptRandom = new JButton("Mass Encrypt Random");
@@ -120,10 +123,11 @@ public class MainWindow extends JFrame {
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         
         mainPane.addTab(tabName, panel);
-        panel.add(fileSelection, BorderLayout.CENTER);
+        panel.add(fileSelection);
         panel.setLayout(layout);
         panel.setVisible(true);
         fileSelection.setVisible(true);
+        fileSelection.setLayout(new BoxLayout(fileSelection, BoxLayout.PAGE_AXIS));
 
         importFileButton.addActionListener(new ActionListener() {
             
@@ -155,7 +159,7 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    files.encryptImagesRandomly(encryptions, encryptedText);
+                    files.encryptImagesRandomly(encryptions, textToEncrypt);
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -174,13 +178,16 @@ public class MainWindow extends JFrame {
         // panel.add(importFileButton);
         // panel.add(outputFileButton 
         
-        fileSelection.add(importFileButton, BorderLayout.CENTER);
-        fileSelection.add(outputFileButton, BorderLayout.CENTER);
-        fileSelection.add(ammountPlain, BorderLayout.CENTER);
-        fileSelection.add(ammountEncrypted, BorderLayout.CENTER);
-        fileSelection.add(fileDirIn, BorderLayout.CENTER);
-        fileSelection.add(fileDirOut, BorderLayout.CENTER);
-        fileSelection.add(encryptRandom, BorderLayout.CENTER);
+        fileSelection.add(importFileButton);
+        fileSelection.add(outputFileButton);
+        fileSelection.add(encryptedText);
+        fileSelection.add(Box.createHorizontalGlue());
+        fileSelection.add(amountEncrypted);
+        fileSelection.add(validationText);
+        fileSelection.add(amountValidation);
+        fileSelection.add(fileDirIn);
+        fileSelection.add(fileDirOut);
+        fileSelection.add(encryptRandom);
 
         // panel.add(fileChooser);
         importFileButton.setVisible(true);
