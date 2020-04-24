@@ -1,5 +1,7 @@
-package montyack.logiccontroller;
+package montyack.logicController;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
+import javax.swing.JProgressBar;
 
 import montyack.encryption.Encryption;
 
@@ -111,32 +114,34 @@ public class FileHandeling {
         }
     }
 
-    public void encryptImagesRandomly(ArrayList<Encryption> listOfEncryptions, String encryptedText) throws IOException {
-        pickFiles(listOfEncryptions, 10000, 10000, encryptedText);
+    public void encryptImagesRandomly(ArrayList<Encryption> listOfEncryptions, String encryptedText, JProgressBar progressBar) throws IOException {
+        pickFiles(listOfEncryptions, 10000, 10000, encryptedText, progressBar);
     }
 
-    public void pickFiles(ArrayList<Encryption> listOfEncryptions, int ammountOfTraining, 
-            int ammountOfValidation, String encryptedText ) throws IOException {
+    public void pickFiles(ArrayList<Encryption> listOfEncryptions, int amountOfTraining, 
+            int amountOfValidation, String encryptedText, JProgressBar progressBar) throws IOException {
         makeDirectories(listOfEncryptions);
-        for (Encryption encryption : listOfEncryptions) {
-            for (int i = 0; i < ammountOfTraining; i++) {
-                Random number = new Random();
-                int selectedNumber = number.nextInt(stringsList.size());
-                BufferedImage image = ImageIO.read(new File(stringsList.get(selectedNumber)));
-                
-                image = encryption.finalImage(image, encryptedText);
-                FileHandeling.savePhotoToDirectory(image, encryption.getName(),
-                        (i+1) + ".png", false);
-            }
-        }
-        for (Encryption encryption : listOfEncryptions) {
-            for (int i = 0; i < ammountOfValidation; i++) {
-                Random number = new Random();
-                int selectedNumber = number.nextInt(stringsList.size());
-                BufferedImage image = ImageIO.read(new File(stringsList.get(selectedNumber)));
+        int width = 250;
+        int height = width;
+        progressBar.setVisible(true);
+        progressBar.setMaximum(listOfEncryptions.size()*2);
+        readAndWriteImageToFile(width, height, listOfEncryptions, amountOfTraining, encryptedText, false, progressBar);
+        readAndWriteImageToFile(width, height, listOfEncryptions, amountOfValidation, encryptedText, true, progressBar);
+        progressBar.setVisible(false);
+    }
 
-                image = encryption.finalImage(image, encryptedText);
-                FileHandeling.savePhotoToDirectory(image, encryption.getName(), (i + 1) + ".png", true);
+    public void readAndWriteImageToFile(int width, int height, ArrayList<Encryption> listOfEncryptions, int amountOf, String encryptedText, boolean validation,
+            JProgressBar progressBar) {
+        String folderName = validation?"validation":"training";
+        for (Encryption encryption : listOfEncryptions) {
+            progressBar.setValue(progressBar.getValue()+1);
+            for (int i = 0; i < amountOf; i++) {
+                Random number = new Random();
+                int selectedNumber = number.nextInt(stringsList.size());
+                String oldPath = stringsList.remove(selectedNumber);
+                FileSaver tempSaver = new FileSaver(i, encryption, oldPath, encryptedText, validation);
+                tempSaver.run();
+
             }
         }
     }
