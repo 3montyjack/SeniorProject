@@ -159,7 +159,7 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    files.encryptImagesRandomly(encryptions, textToEncrypt);
+                    files.encryptImagesRandomly(encryptions, textToEncrypt, progressBar);
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -188,6 +188,7 @@ public class MainWindow extends JFrame {
         fileSelection.add(fileDirIn);
         fileSelection.add(fileDirOut);
         fileSelection.add(encryptRandom);
+        fileSelection.add(progressBar);
 
         // panel.add(fileChooser);
         importFileButton.setVisible(true);
