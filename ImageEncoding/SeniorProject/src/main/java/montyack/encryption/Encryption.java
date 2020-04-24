@@ -2,7 +2,7 @@ package montyack.encryption;
 
 import java.awt.image.BufferedImage;
 
-import montyack.logicController.FileHandeling;
+import montyack.logiccontroller.FileHandeling;
 
 /* Use this class as a parent to further implement the other items for the encryption */
 public abstract class Encryption {

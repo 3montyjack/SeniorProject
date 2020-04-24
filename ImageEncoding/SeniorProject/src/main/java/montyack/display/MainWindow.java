@@ -24,7 +24,7 @@ import javax.swing.SpringLayout;
 import javax.swing.plaf.DimensionUIResource;
 
 import montyack.encryption.Encryption;
-import montyack.logicController.FileHandeling;
+import montyack.logiccontroller.FileHandeling;
 
 public class MainWindow extends JFrame {
 

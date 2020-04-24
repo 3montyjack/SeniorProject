@@ -1,4 +1,4 @@
-package montyack.logicController;
+package montyack.logiccontroller;
 
 import java.lang.Runnable;
 import java.awt.Graphics2D;

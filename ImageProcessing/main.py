@@ -60,11 +60,7 @@ train_datastore = train_files.map(processPath, num_parallel_calls=tf.data.experi
 test_datastore = test_files.map(processPath, num_parallel_calls=tf.data.experimental.AUTOTUNE)
 
 
-<<<<<<< HEAD
-def prepare_for_training(ds, cache=True, shuffle_buffer_size=10000):
-=======
 def prepare_for_training(ds, sizeOfBatch, cache=True, shuffle_buffer_size=10000):
->>>>>>> be357c153d5e29094ba69b01d0d424ca6d900cf6
   # This is a small dataset, only load it once, and keep it in memory.
   # use `.cache(filename)` to cache preprocessing work for datasets that don't
   # fit in memory.
@@ -108,13 +104,8 @@ model.add(layers.Dense(len(categories)))
 
 # model.summary()
 model.compile(optimizer='adam', loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
-<<<<<<< HEAD
-history = model.fit(train_images, train_labels, epochs=20, validation_data=(test_images, test_labels))
-w
-=======
 history = model.fit(train_images, train_labels, epochs=10, validation_data=(test_images, test_labels))
 
->>>>>>> be357c153d5e29094ba69b01d0d424ca6d900cf6
 
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label='val_accuracy')
